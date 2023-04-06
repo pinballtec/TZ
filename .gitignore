@@ -130,3 +130,4 @@ dmypy.json
 
 docker-compose.yml
 !/.gitignore
+!/app/main_app/migrations/
