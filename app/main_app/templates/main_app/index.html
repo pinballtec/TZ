@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <script src="{% static 'scripts/script.js' %}"></script>
+</head>
+<body>
+    <div class="list-container">
+        <h1>List of Items</h1>
+        <div class="list-items">
+            {% for item in object_list %}
+                <div class="list-item">
+                    <div class="item-title">{{item.title}}</div>
+                    <div class="item-description">{{item.description}}</div>
+                    <div class="item-created">{{item.created}}</div>
+                </div>
+            {% empty %}
+                <div class="empty-list">No items</div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
