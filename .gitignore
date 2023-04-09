@@ -129,4 +129,3 @@ dmypy.json
 .pyre/
 
 !/.gitignore
-!/app/main_app/migrations/

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Object</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'style/custom_form.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="{% static 'scripts/form_script.js' %}"></script>
+</head>
+  <body>
+  <div class="form-container">
+    <form method="POST">
+      {% csrf_token %}
+      <label for="{{ form.title.id_for_label }}" class="custom-label">Title</label>
+      {{ form.title }}
+      <label for="{{ form.description.id_for_label }}" class="custom-label">Description</label>
+      {{ form.description }}
+      <label for="{{ form.completed.id_for_label }}" class="check-label">Completed</label>
+      {{ form.completed }}
+      <label for="{{ form.created.id_for_label }}" class="custom-label">Created</label>
+      {{ form.created }}
+      <input type="submit" value="Submit" class="form-submit">
+    </form>
+  </div>
+  </body>
+</html>

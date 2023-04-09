@@ -24,5 +24,13 @@ class URLPatternTest(TestCase):
         url = reverse('record', args=[str(self.task.pk)])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.resolver_match.func.__name__, PlanDetail.as_view().__name__)
+        self.assertEqual(response.resolver_match.func.__name__,
+                         PlanDetail.as_view().__name__)
         self.assertTemplateUsed(response, 'main_app/index_detail.html')
+
+    def test_plan_create_view(self):
+        url = reverse('record-record')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response,
+                                'main_app/index_create.html')

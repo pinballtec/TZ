@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{% static 'scripts/script.js' %}"></script>
 </head>
 <body>
@@ -24,6 +25,10 @@
             {% empty %}
                 <div class="empty-list">No items</div>
             {% endfor %}
+
+        </div>
+     <div class="link-create-record">
+            <a href="{% url 'record-record'%}" class="custom-link">Create</a>
         </div>
     </div>
 </body>

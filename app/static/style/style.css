@@ -32,3 +32,30 @@
     color: #f00;
     margin-top: 20px;
 }
+
+.link-create-record {
+  margin-top: 10px;
+  padding: 5px;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+.link-create-record a {
+  color: #0000ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #0000ff;
+  border-radius: 5px;
+}
+
+.link-create-record a:hover {
+  color: #ff0000;
+  text-decoration: underline;
+  background-color: #f0f0f0;
+}
+
+.custom-link {
+  font-weight: bold;
+}
