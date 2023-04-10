@@ -95,3 +95,11 @@ body {
 .custom-link:hover {
     background-color: #ff0000;
 }
+
+.username {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
