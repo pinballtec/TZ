@@ -3,14 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List of Items</title>
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{% static 'scripts/script.js' %}"></script>
 </head>
 <body>
     <div class="list-container">
-        <h1>List of Items</h1>
+        <h1 class="list-title">List of Items</h1>
         <div class="list-items">
             {% for item in object_list %}
                 <div class="list-item">
@@ -21,13 +21,22 @@
                     </div>
                     <div class="item-description">{{item.description}}</div>
                     <div class="item-created">{{item.created}}</div>
+                    <div class="update-button">
+                        <a href="{% url 'update-record' item.pk %}">
+                            Update
+                        </a>
+                    </div>
+                    <div class="update-button">
+                        <a href="{% url 'delete-record' item.pk %}">
+                            Delete
+                        </a>
+                    </div>
                 </div>
             {% empty %}
                 <div class="empty-list">No items</div>
             {% endfor %}
-
         </div>
-     <div class="link-create-record">
+        <div class="link-create-record">
             <a href="{% url 'record-record'%}" class="custom-link">Create</a>
         </div>
     </div>
