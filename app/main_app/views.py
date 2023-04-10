@@ -7,6 +7,8 @@ from .models import Task
 from .forms import TaskForm
 from django.contrib.auth.views import LoginView
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class Login(LoginView):
     fields = '__all__'
@@ -16,26 +18,26 @@ class Login(LoginView):
         return reverse_lazy('main')
 
 
-class PlansList(ListView):
+class PlansList(LoginRequiredMixin, ListView):
     model = Task
 
 
-class PlanDetail(DetailView):
+class PlanDetail(LoginRequiredMixin, DetailView):
     model = Task
 
 
-class PlanCreate(CreateView):
-    model = Task
-    form_class = TaskForm
-    success_url = reverse_lazy('main')
-
-
-class UpdatePlan(UpdateView):
+class PlanCreate(LoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy('main')
 
 
-class DeletePlan(DeleteView):
+class UpdatePlan(LoginRequiredMixin, UpdateView):
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy('main')
+
+
+class DeletePlan(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = reverse_lazy('main')
