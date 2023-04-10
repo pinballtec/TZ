@@ -24,3 +24,16 @@ $(document).ready(function () {
     alert("Form submitted successfully!");
   });
 });
+
+
+var linkBack = document.querySelector(".link-back a");
+linkBack.addEventListener('mouseenter', function() {
+  this.style.backgroundColor = "#0056b3";
+});
+linkBack.addEventListener('mouseleave', function() {
+  this.style.backgroundColor = "#007bff";
+});
+linkBack.addEventListener('click', function() {
+  alert('Button clicked!');
+});
+

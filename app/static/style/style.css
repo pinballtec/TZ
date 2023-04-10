@@ -1,18 +1,44 @@
+body, h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
 .list-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.list-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 .list-item {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     padding: 10px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
+
+.list-item:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .item-title {
     font-size: 24px;
     font-weight: bold;
+    color: #333;
 }
 
 .item-description {
@@ -27,35 +53,45 @@
     margin-top: 5px;
 }
 
-.empty-list {
-    font-size: 24px;
-    color: #f00;
-    margin-top: 20px;
+.update-button {
+    margin-top: 10px;
+}
+
+.update-button a {
+    color: #0000ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #0000ff;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+.update-button a:hover {
+    color: #ff0000;
+    text-decoration: underline;
+    background-color: #f8f8f8
 }
 
 .link-create-record {
-  margin-top: 10px;
-  padding: 5px;
-  background-color: #f0f0f0;
-  text-align: center;
-}
-
-.link-create-record a {
-  color: #0000ff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  display: inline-block;
-  padding: 5px 10px;
-  border: 1px solid #0000ff;
-  border-radius: 5px;
-}
-
-.link-create-record a:hover {
-  color: #ff0000;
-  text-decoration: underline;
-  background-color: #f0f0f0;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .custom-link {
-  font-weight: bold;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0069D9;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-link:hover {
+    background-color: #ff0000;
 }
