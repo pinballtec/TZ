@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.test import TestCase
 from ..models import Task
+from django.contrib.auth.models import User
 
 
 class PlansListTestCase(TestCase):
@@ -114,3 +115,36 @@ class DeletePlanTestCase(TestCase):
         response = self.client.post(reverse('delete-record', args=[task.pk]))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Task.objects.filter(pk=task.pk).exists())
+
+
+class LoginTestCase(TestCase):
+    def setUp(self):
+        self.username = 'testuser'
+        self.password = 'testpassword'
+        self.user = User.objects.create_user(
+            username=self.username,
+            password=self.password
+        )
+
+    def test_login_view_status_code(self):
+        response = self.client.get(reverse('login'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_login_view_template_used(self):
+        response = self.client.get(reverse('login'))
+        self.assertTemplateUsed(response, 'main_app/login.html')
+
+    def test_login_view_login_form_submission(self):
+        data = {
+            'username': self.username,
+            'password': self.password,
+        }
+        response = self.client.post(reverse('login'), data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('main'))
+
+    def test_login_view_redirect_authenticated_user(self):
+        self.client.login(username=self.username, password=self.password)
+        response = self.client.get(reverse('login'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('main'))

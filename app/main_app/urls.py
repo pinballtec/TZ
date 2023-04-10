@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import PlansList, PlanDetail, PlanCreate, UpdatePlan, DeletePlan
+from .views import PlansList, PlanDetail, PlanCreate
+from .views import UpdatePlan, DeletePlan, Login
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('main/',
@@ -17,5 +19,10 @@ urlpatterns = [
     path('delete-record/<int:pk>/',
          DeletePlan.as_view(template_name="main_app/index_delete.html"),
          name='delete-record'),
-
+    path('login/',
+         Login.as_view(template_name='main_app/login.html'),
+         name='login'),
+    path('logout/',
+         LogoutView.as_view(next_page='main'),
+         name='logout'),
 ]
