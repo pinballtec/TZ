@@ -92,6 +92,11 @@ class PlanCreateTestCase(TestCase):
         response = self.client.post(reverse('record-record'), data=data)
         self.assertEqual(response.status_code, 302)
 
+        task = Task.objects.get(title='Test Task')
+        self.assertEqual(task.title, 'Test Task')
+        self.assertEqual(task.description, 'Test Description')
+        self.assertEqual(task.user, self.user)
+
 
 class UpdatePlanTestCase(TestCase):
     def setUp(self):
