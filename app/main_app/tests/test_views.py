@@ -162,3 +162,24 @@ class DeletePlanTestCase(TestCase):
         response = self.client.post(reverse('delete-record', args=[task.pk]))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Task.objects.filter(pk=task.pk).exists())
+
+
+class RegistrationTestCase(TestCase):
+    def test_registration_view_status_code(self):
+        response = self.client.get(reverse('register'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_registration_view_template_used(self):
+        response = self.client.get(reverse('register'))
+        self.assertTemplateUsed(response, 'main_app/register.html')
+
+    def test_registration_view_form_submission(self):
+        data = {
+            'username': 'testuser',
+            'password1': 'testpassword',
+            'password2': 'testpassword',
+        }
+        response = self.client.post(reverse('register'), data=data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(User.objects.first().username, 'testuser')

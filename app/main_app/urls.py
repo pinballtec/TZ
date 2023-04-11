@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import PlansList, PlanDetail, PlanCreate
-from .views import UpdatePlan, DeletePlan, Login
+from .views import UpdatePlan, DeletePlan, Login, Register
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -25,4 +25,7 @@ urlpatterns = [
     path('logout/',
          LogoutView.as_view(next_page='main'),
          name='logout'),
+    path('register/',
+         Register.as_view(template_name='main_app/register.html'),
+         name='register'),
 ]

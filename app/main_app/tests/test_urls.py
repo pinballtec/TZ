@@ -101,3 +101,42 @@ class DeleteRecordTestCase(TestCase):
     def test_delete_record_view_template_used(self):
         self.client.login(username='testuser',
                           password='testpassword')
+
+
+class RegisterViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser',
+                                             password='testpassword')
+
+    def test_register_view_template(self):
+        response = self.client.get(reverse('register'))
+        self.assertTemplateUsed(response, 'main_app/register.html')
+
+    def test_register_view_form_submission(self):
+        response = self.client.post(reverse('register'), {
+            'username': 'newuser1234',
+            'password1': 'zUV62Dt&d6G921231314',
+            'password2': 'zUV62Dt&d6G921231314'
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('main'))
+
+    def test_register_view_form_submission_with_existing_user(self):
+        response = self.client.post(reverse('register'), {
+            'username': 'testuser',
+            'password1': 'newpassword',
+            'password2': 'newpassword'
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response,
+                            'A user with that username already exists.')
+
+    def test_register_view_form_submission_with_mismatched_passwords(self):
+        response = self.client.post(reverse('register'), {
+            'username': 'newuser',
+            'password1': 'password1',
+            'password2': 'password2'
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response,
+                            'The two password fields didn’t match.')

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style/style_main.css' %}">
+</head>
+<body>
+    {% block content %}
+
+    {% endblock content %}
+    <script src="{% static 'scripts/script_login.js' %}"></script>
+</body>
+</html>

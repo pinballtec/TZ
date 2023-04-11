@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-{% load static %}
+{% extends 'main_app/base.html' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'style/style_login.css' %}">
+    <title>{% block title %}Login{% endblock %}</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Login</h1>
-        <form id="login-form" method="post">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" value="Login">
-        </form>
-        <p class="error-msg" id="error-msg"></p>
-    </div>
-    <script src="{% static 'scripts/script_login.js' %}"></script>
+    {% block content %}
+        <div class="container-register">
+                <h1 class="register-title">Login</h1>
+                <form class="register-form" method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit" value="Login">
+                </form>
+                <p class="register-p">Dont have an account ? <a href="{% url 'register' %}">Register</a></p>
+                <p class="error-msg" id="error-msg"></p>
+        </div>
+    {% endblock content %}
 </body>
 </html>
