@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends 'main_app/base.html' %}
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>{% block title %}Update-User{% endblock %}</title>
+  </head>
+  <body>
+    {% block content %}
+      <div class="container-update-user">
+        <h1 class="update-user-title">Update User</h1>
+        <form class="update-user-form" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="update-user-button">Update</button>
+        </form>
+      </div>
+    {% endblock content %}
+  </body>
+</html>

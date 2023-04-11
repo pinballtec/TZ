@@ -103,3 +103,19 @@ body {
     color: #333;
     text-align: center;
 }
+
+.nav-container {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.nav-link {
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration: none;
+    color: blue;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}

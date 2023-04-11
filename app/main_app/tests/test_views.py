@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.test import TestCase
 from ..models import Task
 from django.contrib.auth.models import User
+from ..forms import UpdateProfileForm
 
 
 class PlansListTestCase(TestCase):
@@ -183,3 +184,35 @@ class RegistrationTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.first().username, 'testuser')
+
+
+class UpdateUserViewTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='testuser', password='testpassword')
+
+    def test_view_uses_correct_template(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('update_user'))
+        self.assertTemplateUsed(response, 'main_app/update_user.html')
+
+    def test_view_uses_correct_form_class(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('update_user'))
+        self.assertEqual(response.context['view'].form_class,
+                         UpdateProfileForm)
+
+    def test_view_updates_user_profile_on_valid_form_submission(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.post(reverse('update_user'), data={
+            'username': 'new_username',
+            'first_name': 'New First Name',
+            'last_name': 'New Last Name',
+            'email': 'new_email@example.com',
+        })
+        self.assertEqual(response.status_code, 302)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.username, 'new_username')
+        self.assertEqual(self.user.first_name, 'New First Name')
+        self.assertEqual(self.user.last_name, 'New Last Name')
+        self.assertEqual(self.user.email, 'new_email@example.com')

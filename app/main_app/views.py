@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.edit import DeleteView, FormView
 from django.urls import reverse_lazy
 from .models import Task
-from .forms import TaskForm
+from .forms import TaskForm, UpdateProfileForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -36,6 +36,26 @@ class Register(FormView):
         if self.request.user.is_authenticated:
             return redirect('main')
         return super(Register, self).get(*args, **kwargs)
+
+
+class Update_user(LoginRequiredMixin, FormView):
+    template_name = 'main_app/update_user.html'
+    form_class = UpdateProfileForm
+    success_url = reverse_lazy('main')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({
+            'instance': self.request.user
+        })
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
 
 class PlansList(LoginRequiredMixin, ListView):
