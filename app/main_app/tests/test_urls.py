@@ -140,3 +140,63 @@ class RegisterViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response,
                             'The two password fields didn’t match.')
+
+
+class UpdateUserViewTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser',
+                                             password='testpassword')
+
+    def test_update_user_view_accessible(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('update_user'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'main_app/update_user.html')
+
+    def test_update_user_view_unauthenticated_redirect(self):
+        self.client.logout()
+        response = self.client.get(reverse('update_user'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response, reverse('login') + '?next=' + reverse('update_user'))
+
+
+class PasswordChangeViewTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='testuser', password='testpassword')
+
+    def test_password_change_view_accessible(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('password_change'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'main_app/password_change.html')
+
+    def test_password_change_view_unauthenticated_redirect(self):
+        self.client.logout()
+        response = self.client.get(reverse('password_change'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response, reverse('login') + '?next=' + reverse('password_change'))
+
+    def test_password_change_view_valid_form_submission(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.post(reverse('password_change'), data={
+            'old_password': 'testpassword',
+            'new_password1': 'new_password',
+            'new_password2': 'new_password',
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('password_change_done'))
+
+    def test_password_change_view_invalid_form_submission(self):
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.post(reverse('password_change'), data={
+            'old_password': 'incorrect_password',
+            'new_password1': 'new_password',
+            'new_password2': 'incorrect_new_password',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'main_app/password_change.html')
+        self.assertContains(response,
+                            'Your old password was entered incorrectly.')
