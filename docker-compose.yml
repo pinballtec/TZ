@@ -25,13 +25,14 @@ services:
       - db
 
   db:
-    image: postgres:13-alpine
-    volumes:
-      - dev-db-data:/var/lib/postgresql/data
+    image: postgres
+    restart: always
     environment:
-      - POSTGRES_DB=devdb
-      - POSTGRES_USER=devuser
-      - POSTGRES_PASSWORD=changeme
+      POSTGRES_DB: railway
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: bwXXc84SgdwhwLS4svm4
+    ports:
+      - "5432:5432"
 
 volumes:
   dev-db-data:
