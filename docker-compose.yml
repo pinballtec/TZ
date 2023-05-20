@@ -20,8 +20,6 @@ services:
       - DB_NAME=railway
       - DB_USER=postgres
       - DB_PASS=bwXXc84SgdwhwLS4svm4
-      - DEBUG=1
-      - SECRET_KEY=devsecretkey
     depends_on:
       - db
 
